@@ -8,37 +8,58 @@
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet">
 
-  <!-- Google Sign-In Library -->
+  <!-- Google Sign-In -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      background-color: #ffffff;
       font-family: 'Quicksand', sans-serif;
+      background-color: #ffffff;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      margin: 0;
+      min-height: 100vh;
     }
 
     .mobile-wrapper {
       max-width: 430px;
       width: 100%;
       padding: 20px;
-      box-sizing: border-box;
     }
 
-    .login-container {
+    .login-box {
+      background: #fff;
+      padding: 30px 20px;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 123, 255, 0.1);
       text-align: center;
-      padding: 40px 20px;
+      animation: fadeIn 0.8s ease;
     }
 
-    .title {
+    .illustration {
+      width: 100%;
+      max-width: 260px;
+      margin: 0 auto 25px;
+      animation: fadeIn 1s ease;
+    }
+
+    .login-title {
       font-size: 32px;
-      font-weight: 600;
       color: #007bff;
-      margin-bottom: 40px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .login-subtitle {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 30px;
     }
 
     .google-btn {
@@ -46,12 +67,23 @@
       justify-content: center;
       margin-top: 20px;
     }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
   <div class="mobile-wrapper">
-    <div class="login-container">
-      <div class="title">Login ke SIMAIA</div>
+    <div class="login-box">
+
+      <!-- Ilustrasi dari file login.png -->
+      <img class="illustration" src="login.png" alt="Ilustrasi Login SIMAIA" />
+
+      <!-- Judul -->
+      <div class="login-title">SIMAIA</div>
+      <div class="login-subtitle">Masuk dengan akun Google Anda</div>
 
       <!-- Google Sign-In -->
       <div id="g_id_onload"
@@ -86,10 +118,7 @@
         picture: payload.picture
       };
 
-      // Simpan data user sementara
       localStorage.setItem('simaia_user', JSON.stringify(user));
-
-      // Redirect ke home.html
       window.location.href = "home.html";
     }
   </script>
