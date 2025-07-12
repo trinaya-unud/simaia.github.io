@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SIMAIA - Login</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet">
+
+  <!-- Google Sign-In Library -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+  <style>
+    body {
+      background-color: #ffffff;
+      font-family: 'Quicksand', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .mobile-wrapper {
+      max-width: 430px;
+      width: 100%;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .login-container {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .title {
+      font-size: 32px;
+      font-weight: 600;
+      color: #007bff;
+      margin-bottom: 40px;
+    }
+
+    .google-btn {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="mobile-wrapper">
+    <div class="login-container">
+      <div class="title">Login ke SIMAIA</div>
+
+      <!-- Google Sign-In -->
+      <div id="g_id_onload"
+           data-client_id="311475082392-4f9ptd7e7c3526hl05b65nk87up0bl2f.apps.googleusercontent.com"
+           data-context="signin"
+           data-ux_mode="popup"
+           data-callback="handleCredentialResponse"
+           data-auto_prompt="false">
+      </div>
+
+      <div class="google-btn">
+        <div class="g_id_signin"
+             data-type="standard"
+             data-shape="pill"
+             data-theme="outline"
+             data-text="signin_with"
+             data-size="large"
+             data-logo_alignment="left">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function handleCredentialResponse(response) {
+      const jwt = response.credential;
+      const payload = JSON.parse(atob(jwt.split('.')[1]));
+
+      const user = {
+        name: payload.name,
+        email: payload.email,
+        picture: payload.picture
+      };
+
+      // Simpan data user sementara
+      localStorage.setItem('simaia_user', JSON.stringify(user));
+
+      // Redirect ke home.html
+      window.location.href = "home.html";
+    }
+  </script>
+</body>
+</html>
